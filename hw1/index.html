@@ -3,8 +3,18 @@
 	</head>
 	<body>
 		<header>
-		  <h1>Homework 1 Writeup</h1>
-		  <p>By Lucy Yang</p>
+		  	<h1>Triangle Rasterizer</h1>
+		 	<p>By Lucy Yang and Nicole Leung</p>
 		</header>
+
+		<section>
+			<header>
+				<h2>Drawing Single Color Triangles</h2>
+			</header>
+			<div class="subsection-content">
+			      <p>To rasterize triangles, we first calculate the bounding box given the coordinates of the vertices of the triangle to improve efficiency of our algorithm. Then, we check to see if the (x, y) image coordinate is inside the triangle using the line tests discussed in lecture. Finally, we fill the pixel by passing the (x, y) coordinate into our sample buffer, which is then resolved to the RGB frame buffer.</p>
+			      <p>Our algorithm is no worse than one that checks each sample within the bounding box of the triangle because this is exactly what our algorithm does - we check each sample within the bounding box of the triangle whether or not the point is inside the triangle by iterating through each (x, y) coordinate inside the bounding box.</p>
+			</div>
+		</section>
 	</body>
 </html>
