@@ -83,7 +83,7 @@
 				<p>In other words, supersampling is useful for antialiasing because it accounts for the fraction of which the pixel is inside of the triangle. It does this, by assigning the pixel a color that is representative of this fraction. Edges in supersampling appear smoother because the color pixels “fade” the less they contribute to the triangle, instead of not-supersampling which creates jaggies by evaluating a pixel as inside the triangle or not. Additionally, supersampling can capture more detail within the image, because it allows smaller samples to contribute to the overall output.</p>
 				<p>In the results below we can see that the edges look more “blurred” as we increase the supersampling rate. As mentioned above, this occurs because as the supersampling rate increases, we are increasing the number of samples that are taken from each pixel. Pixels that have a small fraction within the triangle, will be accounted for by a lighter color. In turn, this will create a “fuzzy” edge that looks smoother than when sampling from a smaller sample-rate. In a smaller super sampling rate, this fraction might not be accounted for because the sub-pixels are not within this portion of the triangle.
 </p>
-				<img src="../images/[CS184] Supersample_1.png" alt="Description of the image">
+				<img src="../images/[CS184] supersample_1.png" alt="Description of the image">
 				<img src="../images/[CS184] Supersample_4.png" alt="Description of the image">
 				<img src="../images/[CS184] Supersample_16.png" alt="Description of the image">
 			</div>
