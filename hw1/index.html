@@ -48,6 +48,19 @@
 
 		<section>
 			<header>
+				<h2>Overview</h2>
+			</header>
+			<div class="subsection-content">
+				<p> In this homework, we’ve implemented a functional vector graphics renderer that can render simplified SVG files and that includes features such as drawing triangles, supersampling pixels, hierarchical transformations, and texture mapping with antialiasing. </p>
+				<p> This was a challenging but very rewarding project! Some major issues we ran into were indexing issues due to conversions between floats, ints, and size_t variables, which caused us to struggle a lot with indexing into the correct location in the sample buffer. In completing this assignment, we solidified our understanding of interpolation in order to map texture coordinates to image coordinates and to interpolate smooth colors across a surface. The most rewarding part of this assignment was observing our rendered images getting closer and closer to the desired output, observing how different bugs affected the final image.
+</p>
+			</div>
+		</section>
+
+		
+
+		<section>
+			<header>
 				<h2>Drawing Single Color Triangles</h2>
 			</header>
 			<div class="subsection-content">
@@ -64,6 +77,7 @@
 			</header>
 			<div class="subsection-content">
 				<p> Barycentric coordinates allow us to express any point in a triangle relative to its vertices as a linear combination of the triangle vertices. Mathematically, if point P = alphaA + betaB + gammaC where A, B, and C are the vertices defining the triangle, (alpha, beta, gamma) is the barycentric coordinate representation of that (x, y) point relative to A, B, and C. We are ensured that the point P will be a linear combination of A, B, and C because gamma = 1 - alpha - beta. Barycentric coordinates have powerful applications in computer graphics, particularly in interpolating attributes such as texture by specifying values or texture coordinates at vertices. The image below illustrates the use of barycentric coordinates with a triangle with its vertices set to three different colors. The smoothness of the gradient was achieved by interpolating the color at different points inside the triangle to obtain smoothly varying values across the surface.</p>
+				<p> Our approach iterates through each image coordinate (x, y) and each subsample of each pixel (if the supersampling rate is increased from 1). We compute alpha, beta, and gamma for each coordinate, and then we use those as coefficients to interpolate the color.</p>
 				<img src="../images/task4.png" alt="Description of the image">
 				<p> A triangle with 3 colors defined at its vertices, interpolated smoothly over the inside of the triangle. </p>
 			</div>
