@@ -30,6 +30,14 @@
 	      padding: 10px;
 	      border-radius: 5px;
 	    }
+	    img {
+	      max-width: 100%; /* Ensure images don't exceed their container's width */
+	      height: auto; /* Maintain aspect ratio */
+	      display: block; /* Remove any extra space below images */
+	      margin: 0 auto 20px; /* Add margin for spacing */
+	      border-radius: 5px; /* Add rounded corners */
+	      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+	    }
 	  </style>
 	</head>
 	<body>
@@ -45,6 +53,8 @@
 			<div class="subsection-content">
 			      <p>To rasterize triangles, we first calculate the bounding box given the coordinates of the vertices of the triangle to improve efficiency of our algorithm. Then, we check to see if the (x, y) image coordinate is inside the triangle using the line tests discussed in lecture. Finally, we fill the pixel by passing the (x, y) coordinate into our sample buffer, which is then resolved to the RGB frame buffer.</p>
 			      <p>Our algorithm is no worse than one that checks each sample within the bounding box of the triangle because this is exactly what our algorithm does - we check each sample within the bounding box of the triangle whether or not the point is inside the triangle by iterating through each (x, y) coordinate inside the bounding box.</p>
+				<img src="../images/task1.png" alt="Description of the image">
+				<p> Rasterizing 5 basic triangles. </p>
 			</div>
 		</section>
 
@@ -54,6 +64,8 @@
 			</header>
 			<div class="subsection-content">
 				<p> Barycentric coordinates allow us to express any point in a triangle relative to its vertices as a linear combination of the triangle vertices. Mathematically, if point P = alphaA + betaB + gammaC where A, B, and C are the vertices defining the triangle, (alpha, beta, gamma) is the barycentric coordinate representation of that (x, y) point relative to A, B, and C. We are ensured that the point P will be a linear combination of A, B, and C because gamma = 1 - alpha - beta. Barycentric coordinates have powerful applications in computer graphics, particularly in interpolating attributes such as texture by specifying values or texture coordinates at vertices. The image below illustrates the use of barycentric coordinates with a triangle with its vertices set to three different colors. The smoothness of the gradient was achieved by interpolating the color at different points inside the triangle to obtain smoothly varying values across the surface.</p>
+				<img src="../images/task4.png" alt="Description of the image">
+				<p> A triangle with 3 colors defined at its vertices, interpolated smoothly over the inside of the triangle. </p>
 			</div>
 		</section>
 		
@@ -64,6 +76,14 @@
 			<div class="subsection-content">
 				<p>Pixel sampling selects a color, intensity, or value from a digital image’s data to represent the pixel on display. In our implementation, we convert from image space (x, y) coordinates to texture space coordinates (u, v) by performing barycentric interpolation on the image space coordinates to interpolate the (u, v) coordinates, which we then use to sample from the texture to determine the color to represent to the screen. The workflow is that we convert from image space to texture space coordinates, then we scale those texture space coordinates by the corresponding mip to determine texel coordinates, which we then use to get the color represented by the (u, v) coordinates.</p>
 				<p>We implemented two different kinds of sampling: nearest neighbor and bilinear. Nearest neighbor sampling simply selects the value of the nearest pixel in the image, whereas bilinear interpolation selects the 4 nearest pixels to the scaled (u, v) point and computes a weighted average of the colors at those 4 pixels based on the pixel’s relative position.</p>
+				<img src="../images/nn-1.png" alt="Description of the image">
+				<p> Nearest neighbor sampling with a sample rate of 1. </p>
+				<img src="../images/nn-16.png" alt="Description of the image">
+				<p> Nearest neighbor sampling with a sample rate of 16. </p>
+				<img src="../images/bi-1.png" alt="Description of the image">
+				<p> Bilinear sampling with a sample rate of 1. </p>
+				<img src="../images/bi-16.png" alt="Description of the image">
+				<p> Bilinear sampling with a sample rate of 16. </p>
 			</div>
 		</section>
 	</body>
