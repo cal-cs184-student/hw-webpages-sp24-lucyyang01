@@ -48,6 +48,19 @@
 
 		<section>
 			<header>
+				<h2>Overview</h2>
+			</header>
+			<div class="subsection-content">
+				<p> In this homework, we’ve implemented a functional vector graphics renderer that can render simplified SVG files and that includes features such as drawing triangles, supersampling pixels, hierarchical transformations, and texture mapping with antialiasing. </p>
+				<p> This was a challenging but very rewarding project! Some major issues we ran into were indexing issues due to conversions between floats, ints, and size_t variables, which caused us to struggle a lot with indexing into the correct location in the sample buffer. In completing this assignment, we solidified our understanding of interpolation in order to map texture coordinates to image coordinates and to interpolate smooth colors across a surface. The most rewarding part of this assignment was observing our rendered images getting closer and closer to the desired output, observing how different bugs affected the final image.
+</p>
+			</div>
+		</section>
+
+		
+
+		<section>
+			<header>
 				<h2>Drawing Single Color Triangles</h2>
 			</header>
 			<div class="subsection-content">
@@ -60,14 +73,44 @@
 
 		<section>
 			<header>
+				<h2>Antialiasing by Supersampling</h2>
+			</header>
+			<div class="subsection-content">
+				<p> In our supersampling algorithm, we sampled multiple points within each pixel to reduce aliasing and improve the detail captured within the image. We implemented this by storing a fraction of the points from the original framebuffer as singular pixels within a sample buffer, sample_buffer, of size width * height * sample_rate.</p>
+				<p>More specifically, In the rasterizing functions, such as rasterize_triangle, rasterize_interpolated_color_triangle, and rasterize_textured_triangle, we sample from the bounding box as if it were split into a grid with width * height * sample_rate sub-pixels. We imagine each pixel is split evenly into sample_rate sub-pixels and sample the center of each sub-pixel as we did in task1, coloring it according to whether or not it passes the three-line test. To do so, we incremented through the framebuffer at a fraction (increment_x  and increment_y ) of what we did when the sample rate was 1. </p>
+				<p>In the fill_pixel function we scaled each of these values by sqrt(sample_rate) so that they would be stored as an individual pixel in the sample_buffer. </p>
+				<p>In the resolve_to_framebuffer function we iterated through the sample buffer using four nested for-loops to find the color of each sub-pixel within one pixel of the framebuffer. We found the average of these values to determine a color that represented a combination of this data. This color was then assigned to the corresponding pixel in the framebuffer. Essentially, this is how we used supersampling to antialias our image.</p>
+				<p>In other words, supersampling is useful for antialiasing because it accounts for the fraction of which the pixel is inside of the triangle. It does this, by assigning the pixel a color that is representative of this fraction. Edges in supersampling appear smoother because the color pixels “fade” the less they contribute to the triangle, instead of not-supersampling which creates jaggies by evaluating a pixel as inside the triangle or not. Additionally, supersampling can capture more detail within the image, because it allows smaller samples to contribute to the overall output.</p>
+				<p>In the results below we can see that the edges look more “blurred” as we increase the supersampling rate. As mentioned above, this occurs because as the supersampling rate increases, we are increasing the number of samples that are taken from each pixel. Pixels that have a small fraction within the triangle, will be accounted for by a lighter color. In turn, this will create a “fuzzy” edge that looks smoother than when sampling from a smaller sample-rate. In a smaller super sampling rate, this fraction might not be accounted for because the sub-pixels are not within this portion of the triangle.
+</p>
+<!-- 				<img src="../images/task4.png" alt="Description of the image"> -->
+				<p> TODO: ADD IMAGES </p>
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Transforms</h2>
+			</header>
+			<div class="subsection-content">
+				<p>Cubeman is now dabbing while kicking out his leg. We made this position by translating their head to the left and slightly down, and then rotating it clockwise by 65 degrees. Next we rotated the second extension of their left arm by 25 degrees clockwise and then translated it upwards and to the right of where it was originally. Finally, we translated the second extension of their right leg slightly less downwards and to the right of where it was originally, and rotated it by 90 degrees.</p>
+<!-- 				<img src="../images/task4.png" alt="Description of the image"> -->
+				<p> tODO: ADD IMAGE</p>
+			</div>
+		</section>
+
+		<section>
+			<header>
 				<h2>Barycentric Coordinates</h2>
 			</header>
 			<div class="subsection-content">
 				<p> Barycentric coordinates allow us to express any point in a triangle relative to its vertices as a linear combination of the triangle vertices. Mathematically, if point P = alphaA + betaB + gammaC where A, B, and C are the vertices defining the triangle, (alpha, beta, gamma) is the barycentric coordinate representation of that (x, y) point relative to A, B, and C. We are ensured that the point P will be a linear combination of A, B, and C because gamma = 1 - alpha - beta. Barycentric coordinates have powerful applications in computer graphics, particularly in interpolating attributes such as texture by specifying values or texture coordinates at vertices. The image below illustrates the use of barycentric coordinates with a triangle with its vertices set to three different colors. The smoothness of the gradient was achieved by interpolating the color at different points inside the triangle to obtain smoothly varying values across the surface.</p>
+				<p> Our approach iterates through each image coordinate (x, y) and each subsample of each pixel (if the supersampling rate is increased from 1). We compute alpha, beta, and gamma for each coordinate, and then we use those as coefficients to interpolate the color.</p>
 				<img src="../images/task4.png" alt="Description of the image">
 				<p> A triangle with 3 colors defined at its vertices, interpolated smoothly over the inside of the triangle. </p>
 			</div>
 		</section>
+		
 		
 		<section>
 			<header>
@@ -84,6 +127,22 @@
 				<p> Bilinear sampling with a sample rate of 1. </p>
 				<img src="../images/bi-16.png" alt="Description of the image">
 				<p> Bilinear sampling with a sample rate of 16. </p>
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Level Sampling with Mipmaps for Texture Mapping</h2>
+			</header>
+			<div class="subsection-content">
+				<p>When we are mapping a texture onto a given surface or image, we use level sampling to choose the most appropriate mipmap level for a certain point on the surface (x, y). Due to the surface and texture having different scales and pixels, sampling pixels from a mipmap of level zero can omit important data that may contribute to the image. In level sampling we use the distances between the UV coordinates to determine how blurred the texture (mipmap level) we sample from should be. This way, each sampled point will account for an appropriate amount of the given texture.</p>
+				<p>For the case where lsm == L_ZERO we called the bilinear or nearest sample function accordingly and passed a MipLevel of zero, as specified. </p>
+				<p>For the case where lsm == L_NEAREST we found the mipmap level using the equation shown in lecture and rounded this value to the nearest integer (mipmap level).</p>
+				<p>For the case where lsm == L_LINEAR we found the mipmap level using the equation shown in lecture. Assuming this level was not an integer, we found the floor and ceiling integer values that this number lay between. We then sampled the texture at both of these mipmap levels receiving two corresponding colors. Next, we computed a weighted average according to where the original level lay between each integer level. For example, if the mipmap level was 2.3 we would return the color 0.7 * color(2) + 0.3 * color(3). </p>
+				<p>Pixel sampling samples only at the pixel level, therefore it has less to iterate through, and performs at a faster speed than other more complex methods. Additionally, pixel sampling requires less memory, because it samples each pixel once. However, it has the worst performance for antialiasing, because it only accounts for whether or not the center of the pixel lies within the image. In comparison, level sampling needs to account for the distance between each pixel and its neighbors, and might occasionally sample a single pixel multiple times at different mipmap levels. This leads to a decrease in speed. Additionally, memory usage increases as well in order to store the respective mipmap levels. However, the antialiasing power increases, because it is able to adjust the blur of the image according to each pixel. Similar to level sampling, super-sampling also operates at a slower speed and requires more memory usage. One reason for this would be the storage of the sub-pixel frame. Despite this impact in performance, super-sampling performs the best for antialiasing because it accounts for multiple sub-pixels within one pixel of the framebuffer.
+</p>
+<!-- 				<img src="../images/task4.png" alt="Description of the image"> -->
+				<p> TODO: ADD IMAGES </p>
 			</div>
 		</section>
 	</body>
