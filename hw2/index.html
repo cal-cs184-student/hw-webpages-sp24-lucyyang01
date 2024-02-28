@@ -1,7 +1,90 @@
 <html>
 	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Homework 2</title>
+	  <style>
+	    /* CSS for styling */
+	    body {
+	      font-family: Arial, sans-serif;
+	      line-height: 1.6;
+	      margin: 0;
+	      padding: 0;
+	    }
+	    header {
+	      background-color: #dd8ea4;
+	      color: #fff;
+	      padding: 20px;
+	      text-align: center;
+	    }
+	    section {
+	      padding: 20px;
+	    }
+	    h2 {
+	      color: #fff; /* Changing text color to contrast with background */
+	      text-align: center;
+	    }
+	    .subsection-content {
+	      background-color: #f9f9f9;
+	      border: 1px solid #ccc;
+	      padding: 10px;
+	      border-radius: 5px;
+	    }
+	    img {
+	      max-width: 100%; /* Ensure images don't exceed their container's width */
+	      height: auto; /* Maintain aspect ratio */
+	      display: block; /* Remove any extra space below images */
+	      margin: 0 auto 20px; /* Add margin for spacing */
+	      border-radius: 5px; /* Add rounded corners */
+	      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+	    }
+	  </style>
 	</head>
 	<body>
-		Homework 2 index.html here
+		<header>
+		  	<h1>Homework 2: Meshed It</h1>
+		 	<p>By Lucy Yang and Nicole Leung</p>
+		</header>
+
+		<section>
+			<header>
+				<h2>Overview</h2>
+			</header>
+			<div class="subsection-content">
+				<p> </p>
+			    <p> </p>
+			</div>
+		</section>
+
+		
+
+		<section>
+			<header>
+				<h2>Part 1: Bezier Curves with 1D de Casteljau Subdivision</h2>
+			</header>
+			<div class="subsection-content">
+				  <p>De Casteljau's Algorithm</p>
+				  <p>De Casteljau’s algorithm takes in a set of control points that define the Bezier curve and a parameter, t, which is a 
+					fraction less than one. The algorithm recursively finds intermediate points between adjacent control points of the same 
+					level until only one point remains, using t to determine the location of the intermediate points. In `evaluateStep(...)` 
+					we used the equation given in the spec and the given arguments to find the intermediate control points that lie between 
+					the given control points and return these values in the form of an std::vector.
+				  </p>
+				<img src="../images/[184] hw2_pngs/[Bez] control_points.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Bez] level_one.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Bez] level_two.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Bez] level_three.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Bez] level_four.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Bez] level_five.png" alt="Description of the image">
+				<p> Completed Bezier Curve </p>
+				<img src="../images/[184] hw2_pngs/[Bez] toggle.png" alt="Description of the image">
+				<p> Altered Bezier Curve </p>
+				<img src="../images/[184] hw2_pngs/[Bez] altered.png" alt="Description of the image">
+
+
+			</div>
+		</section>
+
+	
 	</body>
 </html>
