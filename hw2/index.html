@@ -56,8 +56,6 @@
 			</div>
 		</section>
 
-		
-
 		<section>
 			<header>
 				<h2>Part 1: Bezier Curves with 1D de Casteljau Subdivision</h2>
@@ -80,10 +78,53 @@
 				<img src="../images/[184] hw2_pngs/[Bez] toggle.png" alt="Description of the image">
 				<p> Altered Bezier Curve </p>
 				<img src="../images/[184] hw2_pngs/[Bez] altered.png" alt="Description of the image">
-
-
 			</div>
 		</section>
+
+		<section>
+			<header>
+				<h2>Part 3: Area-Weighted Vertex Normals</h2>
+			</header>
+			<div class="subsection-content">
+				<p>In order to find the area-weighted vertex normals, we traversed every halfedge associated with the vertex and added 
+					the normal and area of the face related to each halfedge to a respective std::vector. We then used these values to find 
+					the weighted average of the normal vectors with respect to the fraction of their face-area divided by the sum of all 
+					neighboring face-areas.
+				</p>
+				<img src="../images/[184] hw2_pngs/[Tea] flat.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Tea] phong.png" alt="Description of the image">
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Part 5: Edge Split</h2>
+			</header>
+			<div class="subsection-content">
+				<p>We first labeled the existing halfedges in the corresponding mesh segment. Then we created a new vertex, three new edges, 
+					six new halfedges, and two new faces. We reassigned the pointers accordingly in order for the mesh to resemble the correct 
+					“splitEdge” result. One debugging trick we used religiously was to comment out specific blocks of code, and then re-run 
+					the program in order to pinpoint what could be causing the error. Additionally changing only one attribute at a time allowed 
+					us to see how each pointer reassignment affected the resulting performance of splitEdge.
+				</p>
+				<p>Before and after edge splits:</p>
+				<img src="../images/[184] hw2_pngs/[Quad] before split.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Quad] after split.png" alt="Description of the image">
+				<p>Before and after edge splits and flips:</p>
+				<img src="../images/[184] hw2_pngs/[Bean] before_split_flip.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Bean] after_split_flip.png" alt="Description of the image">
+				<p>After implementing splitEdge we realized that splitting an edge multiple times, or splitting and then flipping an edge, 
+					led to a blank hole, as if the face of that particular edge disappeared. After confirming the logic of our implementation 
+					we ended up pinpointing the problem to our pointer reassignments. After changing multiple things that we believed could be 
+					the issue (vertex-halfedge pairs, face-halfedge pairs, etc.) we re-analyzed how we used setNeighbors to reassign the 
+					halfedge elements. It turns out we had been labeling the wrong next-halfedge for some of the new halfedges, and were able to 
+					fix this bug.
+				</p>
+			</div>
+		</section>
+
+
+	
 
 	
 	</body>
