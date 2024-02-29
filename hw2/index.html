@@ -51,8 +51,8 @@
 				<h2>Overview</h2>
 			</header>
 			<div class="subsection-content">
-				<p> </p>
-			    <p> </p>
+				<p>In this project, we explored the concepts of geometric modeling through building Bezier curves and surfaces, manipulating triangle meshes constructed through the half-edge data structure, and implementing loop subdivision. Our implementation of Bezier curves was recursive and our implementation of Bezier surfaces was iterative. Implementing triangle mesh manipulation and loop subdivision was much more mechanical and required us to carefully label and track each pointer for reassignment. </p>
+			    <p>We faced many challenges in this project, particularly in the loop subdivision and edge splitting tasks. A major error we made was labelling half of the original edge as a new edge after we performed the split operation, which meant that we ended up with three new edges per split rather than two. This caused an infinite loop when we were splitting every edge in the mesh to be subdivided, because split edges were being split along with original edges. Additionally, we misinterpreted the use of the centroid attribute in the Vector class, which caused us to calculate the final position of the vertex incorrectly after subdivision. Overall, this was a challenging but rewarding project that gave us a deeper understanding of the properties of Bezier curves and geometric meshes.</p>
 			</div>
 		</section>
 
