@@ -178,10 +178,11 @@
 				<p>After three iterations of loop subdivision:</p>
 				<img src="../images/l3.png" alt="Description of the image">
 				<p>Repeated subdivisions on the cube result in asymmetry because the original mesh’s vertices are being redistributed based on the average of neighboring vertices, which leads to a compounding asymmetry as the number of loop subdivisions increases. Some regions also have unequal vertex distribution, which contributes to the asymmetry. To fix this, we can flip edges connecting opposite corners to ensure that they are aligned properly, which maintains symmetry along diagonal edges, while strategic edge splits aim to distribute vertices more evenly. Below is a simple example of how even just preprocessing a few edge flips and splits makes the symmetry much better.</p>
-				<p>Simple preprocessing:</p>
-				<img src="../images/preprocess.png" alt="Description of the image">
-				<p>This produces sharper edges and slightly better symmetry!</p>
-				<img src="../images/moresymmetry.png" alt="Description of the image">
+				<p>Preprocessing by splitting along sharp edges and diagonals:</p>
+				<img src="../images/betterpp.png" alt="Description of the image">
+				<p>This produces much better symmetry and preserves the shape of the cube!</p>
+				<img src="../images/pp1.png" alt="Description of the image">
+				<img src="../images/pp2.png" alt="Description of the image">
 			</div>
 		</section>
 	
