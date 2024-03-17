@@ -83,13 +83,23 @@
 				<h2>Part 3: Direct Illumination</h2>
 			</header>
 			<div class="subsection-content">
-				<p>In order to find the area-weighted vertex normals, we traversed every halfedge associated with the vertex and added 
-					the normal and area of the face related to each halfedge to a respective std::vector. We then used these values to find 
-					the weighted average of the normal vectors with respect to the fraction of their face-area divided by the sum of all 
-					neighboring face-areas.
+				<p>In estimate_direct_lighting_hemisphere, we sample uniformly in a hemisphere. This is done by iterating through the total number of samples (determined by the number of lights in the scene) and obtaining a sample from the hemisphereSampler. We then transform this sample into world space, create a new ray and intersection using that sample, and we check for intersection between the ray and the intersection object. If there is an intersection, we multiply the evaluation of the original intersection’s bsdf by the emission of the new intersection’s bsdf along with the cosine term (which is the dot product of our sample and the original intersection’s n field). We multiply this whole term by 2, and divide it by the number of samples outside of the sampling loop.
 				</p>
-				<img src="../images/[184] hw2_pngs/[Tea] flat.png" alt="Description of the image">
-				<img src="../images/[184] hw2_pngs/[Tea] phong.png" alt="Description of the image">
+				<p>In estimate_direct_lighting_importance, we sample directly from lights by iterating through all lights in the scene. If it’s a point light, we sample once; otherwise, we sample ns_area_light times for each area light. For each sample loop, we get the emission by calling sample_L on the light. We check if the light is behind the object at the hit point by checking the dot product of the n field of the intersection and the wi vector we obtained from sample_L. We then create a new ray and intersection, and if there is no intersection between the ray and intersection, we multiply the evaluation of the original intersection’s bsdf by our emission along with the cosine term (which is the dot product of our sample and the original intersection’s n field). We divide this by the pdf obtained from sample_L, and average it by the number of samples.</p>
+				<p>Here is a bunny rendered with hemisphere sampling:</p>
+				<img src="../images/CBbunnyhemisphere.png" alt="Description of the image">
+				<p>Here is the same bunny rendered with light sampling.</p>
+				<img src="../images/CBbunnyimportance.png" alt="Description of the image">
+				<p>In the areas where the bunny has soft shadows, we can observe that the level of noise in these areas decreases significantly as we use more light rays when we use light sampling.</p>
+				<p>1 light ray:</p>
+				<img src="../images/CBbunnyimportance1ray.png" alt="Description of the image">
+				<p>4 light rays:</p>
+				<img src="../images/CBbunnyimportance4ray.png" alt="Description of the image">
+				<p>16 light rays:</p>
+				<img src="../images/CBbunnyimportance16ray.png" alt="Description of the image">
+				<p>64 light rays:</p>
+				<img src="../images/CBbunnyimportance64ray.png" alt="Description of the image">
+				<p>Uniform hemisphere sampling generates a noisier image because directions are sampled uniformly across the hemisphere, which gives us an even distribution of samples. While this is efficient and easy to implement, it leads to noticeable noise in the image, particularly when the lighting is complex. Lighting sampling makes use of importance sampling, which reduces noise in the final image and also leads to faster convergence in areas of the image with strong or complex lighting. However, the tradeoff of a better quality final image is that lighting sampling is more difficult to implement.</p>
 			</div>
 		</section>
 
