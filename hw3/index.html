@@ -1,7 +1,116 @@
 <html>
 	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Homework 3</title>
+	  <style>
+	    /* CSS for styling */
+	    body {
+	      font-family: Arial, sans-serif;
+	      line-height: 1.6;
+	      margin: 0;
+	      padding: 0;
+	    }
+	    header {
+	      background-color: #dd8ea4;
+	      color: #fff;
+	      padding: 20px;
+	      text-align: center;
+	    }
+	    section {
+	      padding: 20px;
+	    }
+	    h2 {
+	      color: #fff; /* Changing text color to contrast with background */
+	      text-align: center;
+	    }
+	    .subsection-content {
+	      background-color: #f9f9f9;
+	      border: 1px solid #ccc;
+	      padding: 10px;
+	      border-radius: 5px;
+	    }
+	    img {
+	      max-width: 100%; /* Ensure images don't exceed their container's width */
+	      height: auto; /* Maintain aspect ratio */
+	      display: block; /* Remove any extra space below images */
+	      margin: 0 auto 20px; /* Add margin for spacing */
+	      border-radius: 5px; /* Add rounded corners */
+	      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+	    }
+	  </style>
 	</head>
 	<body>
-		Homework 3 index.html here
+		<header>
+		  	<h1>Homework 3: Pathtracer</h1>
+		 	<p>By Lucy Yang and Nicole Leung</p>
+		</header>
+
+		<section>
+			<header>
+				<h2>Overview</h2>
+			</header>
+			<div class="subsection-content">
+				<p>In this project, we explored the concepts of geometric modeling through building Bezier curves and surfaces, manipulating triangle meshes constructed through the half-edge data structure, and implementing loop subdivision. Our implementation of Bezier curves was recursive and our implementation of Bezier surfaces was iterative. Implementing triangle mesh manipulation and loop subdivision was much more mechanical and required us to carefully label and track each pointer for reassignment. </p>
+			    <p>We faced many challenges in this project, particularly in the loop subdivision and edge splitting tasks. A major error we made was labelling half of the original edge as a new edge after we performed the split operation, which meant that we ended up with three new edges per split rather than two. This caused an infinite loop when we were splitting every edge in the mesh to be subdivided, because split edges were being split along with original edges. Additionally, we misinterpreted the use of the centroid attribute in the Vector class, which caused us to calculate the final position of the vertex incorrectly after subdivision. Overall, this was a challenging but rewarding project that gave us a deeper understanding of the properties of Bezier curves and geometric meshes.</p>
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Part 1: Ray Generation and Scene Intersection</h2>
+			</header>
+			<div class="subsection-content">
+				  
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Part 2: Bounding Volume Hierarchy</h2>
+			</header>
+			<div class="subsection-content">
+				<p>To construct our BVH we first construct a bounding box that encapsulates the entire mesh. Then, we make a new node and check to make sure it has enough primitives in it to make it a leaf or inner node. We find the axis with the largest extent and then sort the iterator over primitives by the centroid of the bounding box of each primitive on along the axis with the largest extent. Then, we compute an index to split the list of primitives in half and recursively call construct_bvh on the left and right nodes. In order to prevent infinite recursion and segfaults when we split the list of primitives in half, we ensure that the distance between the start and end of the iterator is at least 1. </p>
+				<p>Without BVH acceleration on cow.dae, we trace 477399 rays with an average speed of 0.0570 rays per second and an average of 1453.732322 intersection tests per ray. The final render took 8.369 seconds to render. With BVH acceleration, we traced 269826 rays with an average speed of 6.0400 million rays per second, averaging 4.064883 intersection tests per ray, for a final rendering time of 0.0447 seconds.</p>
+				<img src="../images/cow.png" alt="Description of the image">
+				<p>Without BVH acceleration on beetle.dae, we trace 474896 rays with an average speed of 0.0461 million rays per second. We average 1949.850184 intersection tests per ray. The final render took 10.2970 seconds. With BVH acceleration, we traced 230123 rays with an average speed of 9.7144 million rays per second, averaging 2.529069 intersection tests per ray, and the final render took 0.0237 seconds.</p>
+				<img src="../images/beetle.png" alt="Description of the image">
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Part 3: Direct Illumination</h2>
+			</header>
+			<div class="subsection-content">
+				<p>In order to find the area-weighted vertex normals, we traversed every halfedge associated with the vertex and added 
+					the normal and area of the face related to each halfedge to a respective std::vector. We then used these values to find 
+					the weighted average of the normal vectors with respect to the fraction of their face-area divided by the sum of all 
+					neighboring face-areas.
+				</p>
+				<img src="../images/[184] hw2_pngs/[Tea] flat.png" alt="Description of the image">
+				<img src="../images/[184] hw2_pngs/[Tea] phong.png" alt="Description of the image">
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Part 4: Global Illumination</h2>
+			</header>
+			<div class="subsection-content">
+				
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Part 5: Adaptive Sampling</h2>
+			</header>
+			<div class="subsection-content">
+				
+			</div>
+		</section>
+
+	
 	</body>
 </html>
