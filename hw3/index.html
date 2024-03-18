@@ -51,8 +51,7 @@
 				<h2>Overview</h2>
 			</header>
 			<div class="subsection-content">
-				<p>In this project, we explored the concepts of geometric modeling through building Bezier curves and surfaces, manipulating triangle meshes constructed through the half-edge data structure, and implementing loop subdivision. Our implementation of Bezier curves was recursive and our implementation of Bezier surfaces was iterative. Implementing triangle mesh manipulation and loop subdivision was much more mechanical and required us to carefully label and track each pointer for reassignment. </p>
-			    <p>We faced many challenges in this project, particularly in the loop subdivision and edge splitting tasks. A major error we made was labelling half of the original edge as a new edge after we performed the split operation, which meant that we ended up with three new edges per split rather than two. This caused an infinite loop when we were splitting every edge in the mesh to be subdivided, because split edges were being split along with original edges. Additionally, we misinterpreted the use of the centroid attribute in the Vector class, which caused us to calculate the final position of the vertex incorrectly after subdivision. Overall, this was a challenging but rewarding project that gave us a deeper understanding of the properties of Bezier curves and geometric meshes.</p>
+
 			</div>
 		</section>
 
@@ -108,7 +107,27 @@
 				<h2>Part 4: Global Illumination</h2>
 			</header>
 			<div class="subsection-content">
-				
+				<p>To implement indirect lighting, we first check to make sure that the maximum ray depth is greater than or equal to 1 - otherwise, we return the one bounce radiance. We accumulate the one bounce radiance and sample the bsdf from the intersection passed in. Then, we obtain the direction vector by transforming the wi vector (populated in the call to sample_f) into world space. We use this direction and the depth of the ray passed in to make a new ray and a new intersection. If there is an intersection between the new ray and new intersection, we recursively call at_least_one_bounce_radiance on this new ray and intersection, find the cosine term by dotting the intersection’s n term with the direction, and then we multiply the recursive return value with the bsdf and cosine and then divide it by the pdf. We accumulate this in the L_out vector. </p>
+				<p>To implement Russian Roulette, we set our probability to 0.7 and call coin_flip on this probability. We then divide the accumulated term by the Russian Roulette probability along with the pdf. </p>
+				<p>Spheres rendered with global illumination:</p>
+				<img src="../images/CBbunnyimportance16ray.png" alt="Description of the image">
+				<p>Bunny rendered with global illumination:</p>
+				<img src="../images/bunny4rr.png" alt="Description of the image"> 
+				<p>When max_ray_depth = 0, we only have the zero bounce light.
+				</p>
+				<img src="../images/bunny0rr.png" alt="Description of the image">
+				<p>When max_ray_depth = 1, we can see basic shadow information, but we don’t get any information from bounce lighting off the walls of the color box.
+				</p>
+				<img src="../images/bunny1rr.png" alt="Description of the image">
+				<p>As max_depth_ray increases, we can see more and more of the color from the walls bleeding into the shadows, as well as the light reflecting off the floor onto the bunny. This gives us more convincing shadows and color information, and allows us to simulate soft shadows and ambient occlusion.
+				</p>
+				<p>max_depth_ray = 2</p>
+				<img src="../images/bunny2rr.png" alt="Description of the image">
+				<p>max_depth_ray = 3</p>
+				<img src="../images/bunny3rr.png" alt="Description of the image">
+				<p>max_depth_ray = 4</p>
+				<img src="../images/bunny4rr.png" alt="Description of the image">
+				<p>max_depth_ray = 100</p>
 			</div>
 		</section>
 
