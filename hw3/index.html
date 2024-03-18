@@ -110,24 +110,41 @@
 				<p>To implement indirect lighting, we first check to make sure that the maximum ray depth is greater than or equal to 1 - otherwise, we return the one bounce radiance. We accumulate the one bounce radiance and sample the bsdf from the intersection passed in. Then, we obtain the direction vector by transforming the wi vector (populated in the call to sample_f) into world space. We use this direction and the depth of the ray passed in to make a new ray and a new intersection. If there is an intersection between the new ray and new intersection, we recursively call at_least_one_bounce_radiance on this new ray and intersection, find the cosine term by dotting the intersection’s n term with the direction, and then we multiply the recursive return value with the bsdf and cosine and then divide it by the pdf. We accumulate this in the L_out vector. </p>
 				<p>To implement Russian Roulette, we set our probability to 0.7 and call coin_flip on this probability. We then divide the accumulated term by the Russian Roulette probability along with the pdf. </p>
 				<p>Spheres rendered with global illumination:</p>
-				<img src="../images/CBbunnyimportance16ray.png" alt="Description of the image">
+				<img src="../images/spheresWRITEUP.png" alt="Description of the image">
 				<p>Bunny rendered with global illumination:</p>
 				<img src="../images/bunny4rr.png" alt="Description of the image"> 
-				<p>When max_ray_depth = 0, we only have the zero bounce light.
+				<p>When max_ray_depth = 0 and Russian Roulette, we only have the zero bounce light.
 				</p>
 				<img src="../images/bunny0rr.png" alt="Description of the image">
-				<p>When max_ray_depth = 1, we can see basic shadow information, but we don’t get any information from bounce lighting off the walls of the color box.
+				<p>When max_ray_depth = 1 and using Russian Roulette, we can see basic shadow information, but we don’t get any information from bounce lighting off the walls of the color box.
 				</p>
 				<img src="../images/bunny1rr.png" alt="Description of the image">
 				<p>As max_depth_ray increases, we can see more and more of the color from the walls bleeding into the shadows, as well as the light reflecting off the floor onto the bunny. This gives us more convincing shadows and color information, and allows us to simulate soft shadows and ambient occlusion.
 				</p>
-				<p>max_depth_ray = 2</p>
+				<p>max_depth_ray = 2 and Russian Roulette:</p>
 				<img src="../images/bunny2rr.png" alt="Description of the image">
-				<p>max_depth_ray = 3</p>
+				<p>max_depth_ray = 3 and Russian Roulette:</p>
 				<img src="../images/bunny3rr.png" alt="Description of the image">
-				<p>max_depth_ray = 4</p>
+				<p>max_depth_ray = 4 and Russian Roulette:</p>
 				<img src="../images/bunny4rr.png" alt="Description of the image">
-				<p>max_depth_ray = 100</p>
+				<p>max_depth_ray = 100 and Russian Roulette:</p>
+				<img src="../images/bunny100rr.png" alt="Description of the image">
+				<p>Comparing sampling rates with 4 light rays:</p>
+				<p>Sampling rate = 1:</p>
+				<img src="../images/spheresl4s1.png" alt="Description of the image">
+				<p>Sampling rate = 2:</p>
+				<img src="../images/spheresl4s2.png" alt="Description of the image">
+				<p>Sampling rate = 4:</p>
+				<img src="../images/spheresl4s4.png" alt="Description of the image">
+				<p>Sampling rate = 8:</p>
+				<img src="../images/spheresl4s8.png" alt="Description of the image">
+				<p>Sampling rate = 16:</p>
+				<img src="../images/spheresl4s16.png" alt="Description of the image">
+				<p>Sampling rate = 64:</p>
+				<img src="../images/spheresl4s64.png" alt="Description of the image">
+				<p>Sampling rate = 1024:</p>
+				<img src="../images/spheresl4s1024.png" alt="Description of the image">
+				<p>Increasing the sampling rate reduces the amount of noise we see in the image, particularly in soft shadows.</p>
 			</div>
 		</section>
 
