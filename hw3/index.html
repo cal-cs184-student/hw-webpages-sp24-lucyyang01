@@ -148,14 +148,24 @@
 				<img src="../images/spheresWRITEUP.png" alt="Description of the image">
 				<p>Bunny rendered with global illumination:</p>
 				<img src="../images/bunny4rr.png" alt="Description of the image"> 
+				
+				
+				<p>Max ray depths of 0, 1, 2, 3, 4, and 5:</p>
+				<img src="../images/bunny0rr.png" alt="Description of the image">
+				<img src="../images/bunny1rr.png" alt="Description of the image">
+				<img src="../images/bunny2rr.png" alt="Description of the image">
+				<img src="../images/bunny3rr.png" alt="Description of the image">
+				<img src="../images/bunny4rr.png" alt="Description of the image">
+				<img src="../images/bunny5rr.png" alt="Description of the image">
+
+				<p>As max_depth_ray increases, we can see more and more of the color from the walls bleeding into the shadows, as well as the light reflecting off the floor onto the bunny. This gives us more convincing shadows and color information, and allows us to simulate soft shadows and ambient occlusion.
+				</p>
 				<p>When max_ray_depth = 0 and Russian Roulette, we only have the zero bounce light.
 				</p>
 				<img src="../images/bunny0rr.png" alt="Description of the image">
 				<p>When max_ray_depth = 1 and using Russian Roulette, we can see basic shadow information, but we don’t get any information from bounce lighting off the walls of the color box.
 				</p>
 				<img src="../images/bunny1rr.png" alt="Description of the image">
-				<p>As max_depth_ray increases, we can see more and more of the color from the walls bleeding into the shadows, as well as the light reflecting off the floor onto the bunny. This gives us more convincing shadows and color information, and allows us to simulate soft shadows and ambient occlusion.
-				</p>
 				<p>max_depth_ray = 2 and Russian Roulette:</p>
 				<img src="../images/bunny2rr.png" alt="Description of the image">
 				<p>max_depth_ray = 3 and Russian Roulette:</p>
