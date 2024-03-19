@@ -66,16 +66,17 @@
 					Hfov and vfov are used to define the horizontal and vertical views of the sensor respectively.</p>
 				<p>We then defined the direction of the ray in the camera space originating from the sensor and intersecting our transformed point and transformed this ray back into the world space using the c2w (camera to world) transformation matrix. Finally, we create the ray using the origin of the sensor in world space, and our newly transformed world space direction.
 				</p>
-				<p>In the triangle intersection algorithm we utilized the Moller Trumblore Algorithm to determine whether or not an intersection occurred. We found the barycentric coordinates of the triangle:
-					`b1 = scale * S1.dot(S);` (beta)
-					`b2 = scale * S2.dot(r.d);` (gamma)
-					(scale = 1/(S1.dot(E1)) 
-					Using two edges of the triangle and their cross-product with the given ray direction and the displacement of the ray-origin from the vertex between the two edges.
+				<p>In the triangle intersection algorithm we utilized the Moller Trumblore Algorithm to determine whether or not an intersection occurred. We found the barycentric coordinates of the triangle:</p>
+					<p>`b1 = scale * S1.dot(S);` (beta)</p>
+					<p>`b2 = scale * S2.dot(r.d);` (gamma)</p>
+					<p>(scale = 1/(S1.dot(E1)) </p>
+					
+					<p>Using two edges of the triangle and their cross-product with the given ray direction and the displacement of the ray-origin from the vertex between the two edges.
 					</p>
 				<p>We also found the value `t` that scales the direction of the ray:
-					`t = scale * S2.dot(E2);`
-					If the ray intersects with the triangle we can represent this intersection with our found values above:
-					r.o + t * r.d = (1 - b1 - b2)x + b1y + b2z
+					<p>`t = scale * S2.dot(E2);`</p>
+					<p>If the ray intersects with the triangle we can represent this intersection with our found values above:</p>
+					<p>r.o + t * r.d = (1 - b1 - b2)x + b1y + b2z</p>
 					</p>
 				<p>Therefore, we evaluated whether or not these values were valid (lying in between logical boundaries) in order to determine if an intersection occurred. If the values were valid, implying an intersection, we found the intersected location using the barycentric coordinates specified above. </p>
 			</div>
