@@ -49,6 +49,20 @@
 		<section>
 			<header>
 				<h2>Overview</h2>
+				<p>This was a long but rewarding project! In this assignment we rendered reallistic images using a ray-tracer.
+					We began with ray generation from a specified point in the world space and defined functions to determine whether or not a generated ray intersects with a primitive
+					in the scene. To efficiently divide the mesh we implemented a bounding volume hierarchy. In order to improve the realistic lighting effects of our rasterized images we
+					sampled uniformly from a hemisphere and from direct ligt sources. Additionally we introduced global illumination by tracing multiple bounce paths of a ray and 
+					included Russian Roulette to randomly terminate ray bounces. Finally we implemented adaptive sampling to dynamically alter the number of samples taken from
+				    each pixel.
+				</p>
+				<p>Throughout the project we encountered a few issues related to debugging.
+					Specifically, we had trouble correctly rendering shadows within our image when sampling from direct light sources. We were able to attribute
+					these errors to how we were casting our values and computing aritmetic with integers. 
+				</p>
+				<p>
+					Overall, we were able to gain a better conceptual understanding of how ray tracing can render realistic images and the various topics and features used to enhance this process.
+				</p>
 			</header>
 			<div class="subsection-content">
 
@@ -69,7 +83,7 @@
 				<p>In the triangle intersection algorithm we utilized the Moller Trumblore Algorithm to determine whether or not an intersection occurred. We found the barycentric coordinates of the triangle:</p>
 					<p>`b1 = scale * S1.dot(S);` (beta)</p>
 					<p>`b2 = scale * S2.dot(r.d);` (gamma)</p>
-					<p>(scale = 1/(S1.dot(E1)) </p>
+					<p>(scale = 1/(S1.dot(E1)))</p>
 					
 					<p>Using two edges of the triangle and their cross-product with the given ray direction and the displacement of the ray-origin from the vertex between the two edges.
 					</p>
@@ -79,6 +93,9 @@
 					<p>r.o + t * r.d = (1 - b1 - b2)x + b1y + b2z</p>
 					</p>
 				<p>Therefore, we evaluated whether or not these values were valid (lying in between logical boundaries) in order to determine if an intersection occurred. If the values were valid, implying an intersection, we found the intersected location using the barycentric coordinates specified above. </p>
+				<img src="../images/CBempty.png" alt="Description of the image">
+				<img src="../images/CBcoil.png" alt="Description of the image">
+				<img src="../images/CBspheres.png" alt="Description of the image">
 			</div>
 		</section>
 
@@ -178,6 +195,8 @@
 				</p>
 				<p>If I is less that the the maximum tolerance * the mean of the samples, we can conclude that the pixel has converged.</p>
 				<p>After generating `samplesPerBatch` number of sample-rays, we calculate the standard deviation, I, and mean of the current sample distribution in order to determine whether or not the samples have converged based on the requirements above. If the samples have converged, we stop generating rays and use the generated sample distribution to return the corresponding radiance.</p>
+				<img src="../images/blob_rate.png" alt="Description of the image">
+				<img src="../images/bunny_rate.png" alt="Description of the image">
 			</div>
 		</section>
 
