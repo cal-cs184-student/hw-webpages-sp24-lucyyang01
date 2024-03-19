@@ -60,10 +60,10 @@
 				<h2>Part 1: Ray Generation and Scene Intersection</h2>
 			</header>
 			<div class="subsection-content">
-				<p>To generate a ray, we are first given coordinates in world space and convert them to camera space using the following transformations:
-					` float sensorX = tan(hFov_rad/ 2) * (2 * x - 1);`
-					 `float sensorY = tan(vFov_rad/2) * (2 * y - 1);`
-					Hfov and vfov are used to define the horizontal and vertical views of the sensor respectively.</p>
+				<p>To generate a ray, we are first given coordinates in world space and convert them to camera space using the following transformations:</p>
+					<p>` float sensorX = tan(hFov_rad/ 2) * (2 * x - 1);`</p>
+					<p>`float sensorY = tan(vFov_rad/2) * (2 * y - 1);`</p> 
+					<p>Hfov and vfov are used to define the horizontal and vertical views of the sensor respectively.</p>
 				<p>We then defined the direction of the ray in the camera space originating from the sensor and intersecting our transformed point and transformed this ray back into the world space using the c2w (camera to world) transformation matrix. Finally, we create the ray using the origin of the sensor in world space, and our newly transformed world space direction.
 				</p>
 				<p>In the triangle intersection algorithm we utilized the Moller Trumblore Algorithm to determine whether or not an intersection occurred. We found the barycentric coordinates of the triangle:</p>
