@@ -60,7 +60,24 @@
 				<h2>Part 1: Ray Generation and Scene Intersection</h2>
 			</header>
 			<div class="subsection-content">
-				  
+				<p>To generate a ray, we are first given coordinates in world space and convert them to camera space using the following transformations:
+					` float sensorX = tan(hFov_rad/ 2) * (2 * x - 1);`
+					 `float sensorY = tan(vFov_rad/2) * (2 * y - 1);`
+					Hfov and vfov are used to define the horizontal and vertical views of the sensor respectively.</p>
+				<p>We then defined the direction of the ray in the camera space originating from the sensor and intersecting our transformed point and transformed this ray back into the world space using the c2w (camera to world) transformation matrix. Finally, we create the ray using the origin of the sensor in world space, and our newly transformed world space direction.
+				</p>
+				<p>In the triangle intersection algorithm we utilized the Moller Trumblore Algorithm to determine whether or not an intersection occurred. We found the barycentric coordinates of the triangle:
+					`b1 = scale * S1.dot(S);` (beta)
+					`b2 = scale * S2.dot(r.d);` (gamma)
+					(scale = 1/(S1.dot(E1)) 
+					Using two edges of the triangle and their cross-product with the given ray direction and the displacement of the ray-origin from the vertex between the two edges.
+					</p>
+				<p>We also found the value `t` that scales the direction of the ray:
+					`t = scale * S2.dot(E2);`
+					If the ray intersects with the triangle we can represent this intersection with our found values above:
+					r.o + t * r.d = (1 - b1 - b2)x + b1y + b2z
+					</p>
+				<p>Therefore, we evaluated whether or not these values were valid (lying in between logical boundaries) in order to determine if an intersection occurred. If the values were valid, implying an intersection, we found the intersected location using the barycentric coordinates specified above. </p>
 			</div>
 		</section>
 
@@ -153,7 +170,13 @@
 				<h2>Part 5: Adaptive Sampling</h2>
 			</header>
 			<div class="subsection-content">
-				
+				<p>Essentially, adaptive sampling modifies the number of sample rays taken from each pixel depending on the current sample distribution. It does so by allocating more resources to pixels that require a higher number of samples for accurate rendering and fewer resources to pixels that have already converged. This helps to reduce rendering time and improve the amount of noise in the final image. </p>
+				<p>To implement this we can determine if the samples converge by finding the value:
+				</p>
+				<p>I = 1.96 * standard deviation / sqrt(number of samples)
+				</p>
+				<p>If I is less that the the maximum tolerance * the mean of the samples, we can conclude that the pixel has converged.</p>
+				<p>After generating `samplesPerBatch` number of sample-rays, we calculate the standard deviation, I, and mean of the current sample distribution in order to determine whether or not the samples have converged based on the requirements above. If the samples have converged, we stop generating rays and use the generated sample distribution to return the corresponding radiance.</p>
 			</div>
 		</section>
 
