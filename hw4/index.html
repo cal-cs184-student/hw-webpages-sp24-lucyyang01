@@ -52,6 +52,8 @@
 			</header>
 			<div class="subsection-content">
 			</div>
+			<p>In this homework we implemented the simulation of a cloth as well as its collisions with a plane and sphere. Additionally we enhance its performance and visualization using integration estimators and shaders. In task one we implemented the cloth as a grid of pointmasses connected by various types of springs. In task two we defined how the cloth will interact with various external and internal forces. In task three we implemented the collision between the cloth and external objects. In task four we adjusted the cloth to account for when it collides with itself. We divided the 3D space into smaller portions to simplify how we check the distance between pointmasses that are close to eachother. Finally in task five we implemented different shaders to apply texture and colors to the simulation.
+			</p>
 		</section>
 
 		
@@ -162,8 +164,17 @@
 				<h2>Shaders</h2>
 			</header>
 			<div class="subsection-content">
-				<img src="../images/nn-1.png" alt="Description of the image">
-	
+				<p></p>
+				<p>Custom texture of a tree!</p>
+				<img src="../images/[clothsim] custom_texture.png" alt="Description of the image">
+				<p>Bump mapping: </p>
+				<img src="../images/[clothsim] bump_sphere.png" alt="Description of the image">
+				<img src="../images/[clothsim] bump_cloth.png" alt="Description of the image">
+				<p>Displacement mapping:</p>
+				<img src="../images/[clothsim] displace_sphere.png" alt="Description of the image">
+				<p>Bump mapping displaces the normals of the cloth and sphere based on the given texture. This makes the simulation look like the texture has been applied to the cloth and the sphere as if they were “wrapped” with this texture. Displacement mapping displaces both the normals and the vertices of the cloth and sphere. This changes the geometry of the objects in the simulation according to the texture. Instead of the texture “wrapping” the objects, it’s deforming them. </p>
+				<p>When we change the sphere’s mesh courseness we don’t notice much of a difference from the bump shader. However, the displacement shader changes the geometry of the sphere differently according to the courseness. At 16 the sphere has a more “spikey” geometry, whereas at 128 its geometry is more directly affected by the divots in the texture.
+				</p>
 			</div>
 		</section>
 	</body>
