@@ -1,7 +1,134 @@
 <html>
 	<head>
+	  <meta charset="UTF-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <title>Homework 4</title>
+	  <style>
+	    /* CSS for styling */
+	    body {
+	      font-family: Arial, sans-serif;
+	      line-height: 1.6;
+	      margin: 0;
+	      padding: 0;
+	    }
+	    header {
+	      background-color: #dd8ea4;
+	      color: #fff;
+	      padding: 20px;
+	      text-align: center;
+	    }
+	    section {
+	      padding: 20px;
+	    }
+	    h2 {
+	      color: #fff; /* Changing text color to contrast with background */
+	      text-align: center;
+	    }
+	    .subsection-content {
+	      background-color: #f9f9f9;
+	      border: 1px solid #ccc;
+	      padding: 10px;
+	      border-radius: 5px;
+	    }
+	    img {
+	      max-width: 100%; /* Ensure images don't exceed their container's width */
+	      height: auto; /* Maintain aspect ratio */
+	      display: block; /* Remove any extra space below images */
+	      margin: 0 auto 20px; /* Add margin for spacing */
+	      border-radius: 5px; /* Add rounded corners */
+	      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+	    }
+	  </style>
 	</head>
 	<body>
-		Homework 4 index.html here
+		<header>
+		  	<h1>Cloth Simulation</h1>
+		 	<p>By Lucy Yang and Nicole Leung</p>
+		</header>
+
+		<section>
+			<header>
+				<h2>Overview</h2>
+			</header>
+			<div class="subsection-content">
+			</div>
+		</section>
+
+		
+
+		<section>
+			<header>
+				<h2>Masses and Springs</h2>
+			</header>
+			<div class="subsection-content">
+				<p>The objective of this task was to divide our cloth into a grid of point masses and springs. To build our grid of masses, we compute steps for the x, y, and z coordinates of the point masses based on the width/height and num_width_points/num_height_points. To store point masses in row-major order, we implemented a double for loop that iterates through num_height_points and num_width_points. If the orientation of the cloth is horizontal, we set the y coordinate to 1 and multiply our loop counters by their corresponding x and z steps. If the orientation is vertical, we compute a small random float for the z coordinate and multiply the loop counters by the corresponding x and y steps. We check the pinned vector to see if the coordinates match up with the point mass we’re defining and set the pinned field accordingly. We then iterate through our grid of point masses and add the correct structural, shearing, and bending springs between the point masses.
+				</p>
+				<p>Some struggles we ran into were ensuring our point masses and springs were stored in row-major order and running into array indexing issues when constructing springs between point masses.
+				</p>
+				<p>Below you can see the structure of our point masses and springs:</p>
+				<img src="../images/alldiffangle.png" alt="Description of the image">
+				<p>The cloth without any shearing constraints: </p>
+				<img src="../images/noshear.png" alt="Description of the image">
+				<p>The cloth with only shearing constraints:</p>
+				<img src="../images/onlyshear.png" alt="Description of the image">
+				<p>The cloth with all constraints:</p>
+				<img src="../images/allconstraints.png" alt="Description of the image">
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Simulation via Numerical Integration</h2>
+			</header>
+			<div class="subsection-content">
+				
+				<img src="../images/[CS184] supersample_1.png" alt="Description of the image">
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Handling Collisions with Other Objects</h2>
+			</header>
+			<div class="subsection-content">
+				<p>In this task we added support for cloth collision with other objects in the scene. 
+				</p>
+				<p>To handle collisions with spheres, we first get the distance between the point mass’s position and the origin of the sphere. If the distance is smaller than the radius of the sphere, the point mass is inside the sphere, so we calculate the correction vector to apply to the point mass’s last position in order to bump its position up to the surface of the sphere at the tangent point, taking friction into account.
+				</p>
+				<p>To handle collisions with planes, we first determine if the point mass has crossed over to the other side of the plane by calculating the signed distances from the point mass’s previous and current positions to a point on the plane. If multiplying these distances yields a negative number, we know that the point mass has crossed the plane. If the point mass has crossed, or is on/about to be on the plane, we calculate the correction vector to apply to the point mass’s last position to bump the point mass’s position to the tangent point on the plane.
+				</p>
+				<p>A significant challenge we faced in this part was collision detection with the plane. Our incorrect calculation of the tangent point caused various incorrect behaviors of the cloth, including bouncing up and down, being flung like a rubber band into the distance, or falling through the plane. We were able to fix this problem by correctly computing the tangent point.
+				</p>
+				<p>The resting state of the cloth varies depending on the value of ks, the spring constant.</p>
+				<p>When ks = 5000:</p>
+				<img src="../images/ks5000.png" alt="Description of the image">
+				<p>When ks = 500:</p>
+				<img src="../images/ks500.png" alt="Description of the image">
+				<p>When ks = 50000:</p>
+				<img src="../images/ks50000.png" alt="Description of the image">
+				<p>As can be seen from the images above, when the value of the spring constant is lower, the cloth is more drapey because the springs are less stiff at lower values. At higher values, the cloth is more rigid and it retains more of its original shape from the initial position, since the springs connecting the point masses are very stiff. </p>
+			</div>
+		</section>
+
+		<section>
+			<header>
+				<h2>Handling Self-Collisions</h2>
+			</header>
+			<div class="subsection-content">
+				<img src="../images/task4.png" alt="Description of the image">
+				<p> A triangle with 3 colors defined at its vertices, interpolated smoothly over the inside of the triangle. </p>
+			</div>
+		</section>
+		
+		
+		<section>
+			<header>
+				<h2>Shaders</h2>
+			</header>
+			<div class="subsection-content">
+				<img src="../images/nn-1.png" alt="Description of the image">
+	
+			</div>
+		</section>
 	</body>
 </html>
