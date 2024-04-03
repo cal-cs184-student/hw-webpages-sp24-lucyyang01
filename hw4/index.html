@@ -164,7 +164,9 @@
 				<h2>Shaders</h2>
 			</header>
 			<div class="subsection-content">
-<<<<<<< HEAD
+				<p>Shader programs create visual effects in computer graphics by manipulating vertices and pixels. Vertex shaders operates on individual vertices of the 3D model and perform translation and rotation, while fragment shaders compute the final color of pixels based on textures, material properties, and lighting. The vertex and fragment shaders manage and coordinate the rendering process in the GPU, so these systems all work together.</p>
+				<p>Blinn-Phong shading calculates the intensity of light reflected from a surface based on the ambient, diffuse, and specular components. In our implementation, we calculate the direction of light from the fragment and the view direction from the fragment to the camera and use this to compute the half vector. We then calculate the diffuse reflection intensity by taking the dot product of the normal vector and the light direction and clamp it to 0 if it’s negative, and the specular reflection intensity by taking the dot product of the normal and half vectors raised to 128. We then compute the specular, diffuse, and ambient components according to the Blinn-Phong equation and combine them for the final color output.
+				</p>
 				<p>Blinn-Phong ambient component:</p>
 				<img src="../images/onlyambient.png" alt="Description of the image">
 				<p>Blinn-Phong diffuse component:</p>
@@ -173,7 +175,6 @@
 				<img src="../images/onlyspecular.png" alt="Description of the image">
 				<p>Blinn-Phong combined ambient, diffuse, and specular components:</p>
 				<img src="../images/phongall.png" alt="Description of the image">
-=======
 				<p></p>
 				<p>Custom texture of a tree!</p>
 				<img src="../images/[clothsim] custom_texture.png" alt="Description of the image">
@@ -185,7 +186,9 @@
 				<p>Bump mapping displaces the normals of the cloth and sphere based on the given texture. This makes the simulation look like the texture has been applied to the cloth and the sphere as if they were “wrapped” with this texture. Displacement mapping displaces both the normals and the vertices of the cloth and sphere. This changes the geometry of the objects in the simulation according to the texture. Instead of the texture “wrapping” the objects, it’s deforming them. </p>
 				<p>When we change the sphere’s mesh courseness we don’t notice much of a difference from the bump shader. However, the displacement shader changes the geometry of the sphere differently according to the courseness. At 16 the sphere has a more “spikey” geometry, whereas at 128 its geometry is more directly affected by the divots in the texture.
 				</p>
->>>>>>> 9d880ed1b5d82dc019457e035b758af7fc2d05d1
+				<p>Mirror shading on cloth and sphere:</p>
+				<img src="../images/mirror.png" alt="Description of the image">
+				<img src="../images/mirroronball.png" alt="Description of the image">
 			</div>
 		</section>
 	</body>
