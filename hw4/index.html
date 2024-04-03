@@ -81,10 +81,29 @@
 				<h2>Simulation via Numerical Integration</h2>
 			</header>
 			<div class="subsection-content">
-				
-				<img src="../images/[CS184] supersample_1.png" alt="Description of the image">
+				<p> The spring constant (ks) seems to affect the stiffness of the cloth. A very low ks causes the cloth to ripple intensely and appear almost liquid-like. It seems to be a lot more sensitive to external forces. This can be seen in the image below: 
+				</p>
+				<img src="../images/[clothsim] lowks pinned.png" alt="Description of the image">
+				<p>A very high ks causes the cloth to appear much more stiff. For example, the rest position of the cloth contains less folds as the default ks of 5000. This can be observed in the following image:
+				</p>
+				<img src="../images/[clothsim] highks pinned.png" alt="Descriptpion of the image">
+				<p>The density of the cloth seems to affect its deformation. A lower density makes the cloth less sensitive to other forces which can be seen through its resting position that resembles what occurs with a high ks:
+				</p>
+				<img src="../images/[clothsim] lowdensity pinned.png" alt="Description of the image">
+				<p>A higher density makes the cloth seem a bit heavier which could be explained by its increased mass per unit volume. In turn the cloth has a stronger fold in its resting position:
+				</p>
+				<img src="../images/[clothsim] highdensity pinned.png" alt="Description of the image">
+				<p>The damping coefficient seems to affect the speed at which the cloth falls and how sensitive the cloth’s movement is to the external forces such as gravity. A low coefficient makes the cloth appear very bouncy. It falls quickly and continues to sway back and forth instead of immediately finding a resting position:
+				</p>
+				<img src="../images/[clothsim] lowdamp pinned.png" alt="Description of the image">
+				<p>A high damping coefficient causes the cloth to fall very slowly. It immediately finds a resting position once the cloth is in a vertical position relative to the pinned points:
+				</p>
+				<img src="../images/[clothsim] highdamp pinned.png" alt="Description of the image">
+				<p>Final resting with default parameters (pinned4): </p>
+				<img src="../images/[clothsim] default pinned4.png" alt="Description of the image">
 			</div>
 		</section>
+
 
 		<section>
 			<header>
@@ -115,8 +134,25 @@
 				<h2>Handling Self-Collisions</h2>
 			</header>
 			<div class="subsection-content">
-				<img src="../images/task4.png" alt="Description of the image">
-				<p> A triangle with 3 colors defined at its vertices, interpolated smoothly over the inside of the triangle. </p>
+				<p>The cloth folding into itself as it intersects with the plane:</p>
+				<img src="../images/[clothsim] folding1.png" alt="Description of the image">
+				<img src="../images/[clothsim] folding2.png" alt="Description of the image">
+				<img src="../images/[clothsim] folding3.png" alt="Description of the image">
+				
+				<p>A higher density or a lower ks makes the cloth appear thinner and folds into itself more aggressively, meanwhile a lower density or a higher ks makes the cloth appear more sturdy and “heavier.” In the sense that it folds into itself less as it collides with the plane.
+				</p>
+				<p>Low density:</p>
+				<img src="../images/[clothsim] lowdensity folding1.png" alt="Description of the image">
+				<img src="../images/[clothsim] lowdensity folding2.png" alt="Description of the image">
+				<p>High density:</p>
+				<img src="../images/[clothsim] highdensity folding1.png" alt="Description of the image">
+				<img src="../images/[clothsim] highdensity folding2.png" alt="Description of the image">
+				<p>Low ks:</p>
+				<img src="../images/[clothsim] lowks folding1.png" alt="Description of the image">
+				<img src="../images/[clothsim] lowks folding2.png" alt="Description of the image">
+				<p>High ks:</p>
+				<img src="../images/[clothsim] highks folding1.png" alt="Description of the image">
+				<img src="../images/[clothsim] highks folding2.png" alt="Description of the image">
 			</div>
 		</section>
 		
